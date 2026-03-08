@@ -9,6 +9,7 @@ export interface Product {
   urlPhoto: string
   name: string
   isAvailable: boolean
+  isPaid: boolean
   supplier: Supplier
   /** Price stored in cents (e.g. 1100 = R$ 11,00) */
   price: number
