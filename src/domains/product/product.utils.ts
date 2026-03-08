@@ -21,7 +21,7 @@ export function buildWhatsAppUrl(
   productUrl: string
 ): string {
   const message = encodeURIComponent(
-    `Olá! Tenho interesse no produto "${productName}" 😊\n${productUrl}`
+    `Olá Dona Jeu! Tenho interesse no produto "${productName}" 😊\n${productUrl}`
   )
   return `https://wa.me/${phoneNumber}?text=${message}`
 }

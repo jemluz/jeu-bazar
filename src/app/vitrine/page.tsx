@@ -1,34 +1,14 @@
-import { ShoppingBag } from "lucide-react"
 import { productData } from "@/domains/product/product.data"
 import { ProductCard } from "@/components/ProductCard"
+import { PaymentWarning } from "@/components/PaymentWarning"
+import { Header } from "@/components/Header"
 
 export default function VitrinePage() {
   return (
     <main className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b border-border bg-card px-6 py-4">
-        <div className="mx-auto flex max-w-7xl items-center gap-3">
-          <ShoppingBag className="h-8 w-8 text-primary" />
-          <div>
-            <h1 className="text-2xl font-bold text-foreground">Bazar da Jeu</h1>
-            <p className="text-sm text-muted-foreground">
-              Tudo é diferente quanto muda, e eu estou de mudança... <strong>Corra</strong> que eu já estou correndo por aqui também!
-            </p>
-          </div>
-        </div>
-      </header>
+      <Header maxWidthClass="max-w-7xl" />
 
-      {/* Aviso importante */}
-      <section className="mx-auto max-w-7xl px-6 pt-8">
-        <div className="rounded-xl border-2 border-amber-500 bg-amber-50 px-4 py-3 text-amber-900 shadow-sm">
-          <h1 className="text-lg font-semibold sm:text-base">Atenção! Este site não realiza pagamentos!</h1>
-          <p className="text-sm sm:text-base">
-            Essa é apenas uma vitrine para o bazar.
-            As negociações devem ser feitas diretamente com Dona Jeu.
-          </p>
-          
-        </div>
-      </section>
+      <PaymentWarning />
 
       {/* Product Grid */}
       <section className="mx-auto max-w-7xl px-6 py-8">

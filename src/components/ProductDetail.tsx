@@ -16,6 +16,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { formatPrice } from "@/domains/product/product.utils"
 import { useWhatsApp } from "@/hooks/useWhatsApp"
 import type { Product } from "@/domains/product/product.types"
+import { AvailabilityBadge } from "./AvailabilityBadge"
 
 interface ProductDetailProps {
   product: Product
@@ -50,24 +51,12 @@ export function ProductDetail({ product }: ProductDetailProps) {
             sizes="(max-width: 768px) 100vw, 50vw"
             priority
           />
-          <div className="absolute top-4 left-4">
-            {product.isAvailable ? (
-              <Badge variant="success" className="gap-1 text-sm px-3 py-1">
-                <CheckCircle className="h-4 w-4" />
-                Disponível
-              </Badge>
-            ) : (
-              <Badge variant="sold" className="gap-1 text-sm px-3 py-1">
-                <XCircle className="h-4 w-4" />
-                Vendido
-              </Badge>
-            )}
-          </div>
         </div>
 
         {/* Details */}
         <div className="flex flex-col justify-between gap-6">
           <div className="space-y-4">
+            <AvailabilityBadge isAvailable={product.isAvailable} />
             <h2 className="text-3xl font-bold text-foreground">
               {product.name}
             </h2>
