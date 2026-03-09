@@ -4,6 +4,10 @@ export enum Supplier {
   MIRIAM = "Miriam",
 }
 
+export enum PaymentStatus {
+  PAID = "Pago",
+  UNPAID = "Não pago",
+}
 export interface Product {
   id: number
   urlPhoto: string | string[]
@@ -13,4 +17,5 @@ export interface Product {
   supplier: Supplier
   /** Price stored in cents (e.g. 1100 = R$ 11,00) */
   price: number
+  purchaser: string
 }
