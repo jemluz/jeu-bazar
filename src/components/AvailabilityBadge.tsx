@@ -1,4 +1,4 @@
-import { CheckCircle, XCircle } from "lucide-react"
+import { CircleCheck, XCircle } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 
 interface AvailabilityBadgeProps {
@@ -11,12 +11,12 @@ export function AvailabilityBadge({ isAvailable }: AvailabilityBadgeProps) {
       variant="success"
       className="rounded-lg gap-1 bg-green-50 text-green-500 hover:bg-green-50 cursor-default"
     >
-      <CheckCircle className="h-3 w-3" />
+      <CircleCheck className="h-4 w-4" />
       DISPONÍVEL
     </Badge>
   ) : (
     <Badge variant="sold" className="rounded-lg gap-1 bg-red-50 text-red-500">
-      <XCircle className="h-3 w-3" />
+      <XCircle className="h-4 w-4" />
       VENDIDO
     </Badge>
   )
