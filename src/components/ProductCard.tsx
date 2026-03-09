@@ -23,15 +23,10 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { AvailabilityBadge } from "@/components/AvailabilityBadge"
+import { SUPPLIER_STYLES } from "@/domains/product/product.constants"
 import { formatPrice } from "@/domains/product/product.utils"
 import { useWhatsApp } from "@/hooks/useWhatsApp"
-import { Supplier, type Product } from "@/domains/product/product.types"
-
-const supplierStyles: Record<Supplier, string> = {
-  [Supplier.LENI]: "bg-orange-50 text-orange-500",
-  [Supplier.JEU]: "bg-pink-50 text-pink-500",
-  [Supplier.MIRIAM]: "bg-purple-50 text-purple-500",
-}
+import type { Product } from "@/domains/product/product.types"
 
 interface ProductCardProps {
   product: Product
@@ -153,7 +148,7 @@ export function ProductCard({ product }: ProductCardProps) {
             <User className="h-3.5 w-3.5" />
             Fornecedor:{" "}
             <span
-              className={`rounded-lg px-2 py-0.5 text-xs font-medium ${supplierStyles[product.supplier]}`}
+              className={`rounded-lg px-2 py-0.5 text-xs font-medium ${SUPPLIER_STYLES[product.supplier]}`}
             >
               {product.supplier}
             </span>
