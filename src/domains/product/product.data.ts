@@ -12,7 +12,7 @@ export const productData: Product[] = [
   },
   {
     id: 2,
-    urlPhoto: "/product-photos/placeholder.svg",
+    urlPhoto: "/product-photos/bomboniere-vidro-lyor.jpg",
     name: "Bomboniere Vidro Lyor",
     isAvailable: true,
     isPaid: false,
@@ -39,7 +39,7 @@ export const productData: Product[] = [
   },
   {
     id: 5,
-    urlPhoto: "/product-photos/placeholder.svg",
+    urlPhoto: "/product-photos/porta-condimentos-giratorio.jpg",
     name: "Porta Condimentos Giratorio",
     isAvailable: true,
     isPaid: false,
@@ -147,7 +147,7 @@ export const productData: Product[] = [
   },
   {
     id: 17,
-    urlPhoto: "/product-photos/placeholder.svg",
+    urlPhoto: "/product-photos/porta-ovos-bege.jpg",
     name: "Porta Ovos Bege",
     isAvailable: true,
     isPaid: false,
@@ -399,7 +399,7 @@ export const productData: Product[] = [
   },
   {
     id: 45,
-    urlPhoto: "/product-photos/placeholder.svg",
+    urlPhoto: "/product-photos/pipoqueira.jpg",
     name: "Pipoqueira Britania",
     isAvailable: true,
     isPaid: false,
@@ -417,7 +417,7 @@ export const productData: Product[] = [
   },
   {
     id: 47,
-    urlPhoto: "/product-photos/placeholder.svg",
+    urlPhoto: "/product-photos/tapioqueira.jpg",
     name: "Tapioqueira",
     isAvailable: true,
     isPaid: false,
@@ -444,7 +444,7 @@ export const productData: Product[] = [
   },
   {
     id: 50,
-    urlPhoto: "/product-photos/placeholder.svg",
+    urlPhoto: "/product-photos/jarra-licor.jpg",
     name: "Jarra Licor",
     isAvailable: true,
     isPaid: false,
@@ -453,7 +453,7 @@ export const productData: Product[] = [
   },
   {
     id: 51,
-    urlPhoto: "/product-photos/placeholder.svg",
+    urlPhoto: "/product-photos/bandeija-bamboo.jpg",
     name: "Bandeija de Bamboo",
     isAvailable: true,
     isPaid: false,
@@ -561,7 +561,7 @@ export const productData: Product[] = [
   },
   {
     id: 63,
-    urlPhoto: "/product-photos/placeholder.svg",
+    urlPhoto: "/product-photos/porta-vela.jpg",
     name: "2 Porta Velas Preto",
     isAvailable: true,
     isPaid: false,
@@ -588,8 +588,8 @@ export const productData: Product[] = [
   },
   {
     id: 66,
-    urlPhoto: "/product-photos/placeholder.svg",
-    name: "8 Pratos de Sobremesa Lyor",
+    urlPhoto: ["/product-photos/kit-prato-sobremesa-lyor-8pcs-1.jpg", "/product-photos/kit-prato-sobremesa-lyor-8pcs-2.jpg"],
+    name: "Kit Pratos de Sobremesa Lyor 8pcs",
     isAvailable: true,
     isPaid: false,
     supplier: Supplier.JEU,
@@ -606,7 +606,7 @@ export const productData: Product[] = [
   },
   {
     id: 68,
-    urlPhoto: "/product-photos/placeholder.svg",
+    urlPhoto: ["/product-photos/kit-copos-lyor-6pcs.jpg", "/product-photos/kit-copos-lyor-6pcs-2.jpg"],
     name: "6 Copos Lyor",
     isAvailable: true,
     isPaid: false,
@@ -624,7 +624,7 @@ export const productData: Product[] = [
   },
   {
     id: 70,
-    urlPhoto: "/product-photos/placeholder.svg",
+    urlPhoto: ["/product-photos/kit-tacas-licor-2pcs.jpg", "/product-photos/kit-tacas-licor-2pcs-2.jpg"],
     name: "2 Taças para Licor",
     isAvailable: true,
     isPaid: false,
@@ -642,8 +642,8 @@ export const productData: Product[] = [
   },
   {
     id: 72,
-    urlPhoto: "/product-photos/placeholder.svg",
-    name: "6 Taças para Licor",
+    urlPhoto: ["/product-photos/kit-tacas-lanty-6pcs.jpg", "/product-photos/kit-tacas-lanty-6pcs-2.jpg"],
+    name: "Kit Taças para Licor Lanty 6 pcs",
     isAvailable: true,
     isPaid: false,
     supplier: Supplier.JEU,
@@ -669,7 +669,7 @@ export const productData: Product[] = [
   },
   {
     id: 75,
-    urlPhoto: "/product-photos/placeholder.svg",
+    urlPhoto: "/product-photos/tigela-fiz.jpg",
     name: "Tigela Fiz",
     isAvailable: true,
     isPaid: false,
@@ -714,7 +714,7 @@ export const productData: Product[] = [
   },
   {
     id: 80,
-    urlPhoto: "/product-photos/placeholder.svg",
+    urlPhoto: "/product-photos/kit-facas-douradas-6pcs.jpg",
     name: "6 Facas Douradas",
     isAvailable: true,
     isPaid: false,
@@ -732,7 +732,7 @@ export const productData: Product[] = [
   },
   {
     id: 82,
-    urlPhoto: "/product-photos/placeholder.svg",
+    urlPhoto: "/product-photos/garfos-rose.jpg",
     name: "2 Garfos Rosê",
     isAvailable: true,
     isPaid: false,
@@ -741,7 +741,7 @@ export const productData: Product[] = [
   },
   {
     id: 83,
-    urlPhoto: "/product-photos/placeholder.svg",
+    urlPhoto: "/product-photos/colheres-rose.jpg",
     name: "2 Colheres Rosê",
     isAvailable: true,
     isPaid: false,
@@ -813,8 +813,8 @@ export const productData: Product[] = [
   },
   {
     id: 91,
-    urlPhoto: "/product-photos/placeholder.svg",
-    name: "Jogo 4 Pratos/Pires Ryo",
+    urlPhoto: ["/product-photos/conjunto-pratos-pires-ryo-1.jpg", "/product-photos/conjunto-pratos-pires-ryo-2.jpg", "/product-photos/conjunto-pratos-pires-ryo-3.jpg", "/product-photos/conjunto-pratos-pires-ryo-4.jpg", "/product-photos/conjunto-pratos-pires-ryo-5.jpg"],
+    name: "Jogo 4 Pratos & Pires Ryo",
     isAvailable: true,
     isPaid: false,
     supplier: Supplier.JEU,
@@ -822,8 +822,8 @@ export const productData: Product[] = [
   },
   {
     id: 92,
-    urlPhoto: "/product-photos/placeholder.svg",
-    name: "Jogo 4 Pratos/Pires Ryo",
+    urlPhoto: ["/product-photos/conjunto-pratos-pires-ryo-1.jpg", "/product-photos/conjunto-pratos-pires-ryo-2.jpg", "/product-photos/conjunto-pratos-pires-ryo-3.jpg", "/product-photos/conjunto-pratos-pires-ryo-4.jpg", "/product-photos/conjunto-pratos-pires-ryo-5.jpg"],
+    name: "Jogo 4 Pratos & Pires Ryo",
     isAvailable: true,
     isPaid: false,
     supplier: Supplier.JEU,
@@ -1200,7 +1200,7 @@ export const productData: Product[] = [
   },
   {
     id: 134,
-    urlPhoto: "/product-photos/placeholder.svg",
+    urlPhoto: ["/product-photos/cadeirinha-bebe-1.jpg", "/product-photos/cadeirinha-bebe-2.jpg"],
     name: "Cadeirinha de Bebê",
     isAvailable: true,
     isPaid: false,
@@ -1254,7 +1254,7 @@ export const productData: Product[] = [
   },
   {
     id: 140,
-    urlPhoto: "/product-photos/placeholder.svg",
+    urlPhoto: ["/product-photos/kit-guardanapos-amarelos-8pcs-2.jpg", "/product-photos/kit-guardanapos-amarelos-8pcs-1.jpg"],
     name: "Kit 8 Guardanapos Amarelos",
     isAvailable: true,
     isPaid: false,
@@ -1371,8 +1371,8 @@ export const productData: Product[] = [
   },
   {
     id: 153,
-    urlPhoto: "/product-photos/placeholder.svg",
-    name: "Porta Retrato Marron",
+    urlPhoto: ["/product-photos/retrato-marrom-1.jpg", "/product-photos/retrato-marrom-2.jpg"],
+    name: "Porta Retrato Marrom",
     isAvailable: true,
     isPaid: false,
     supplier: Supplier.JEU,
@@ -1386,5 +1386,14 @@ export const productData: Product[] = [
     isPaid: false,
     supplier: Supplier.JEU,
     price: 2000,
+  },
+  {
+    id: 155,
+    urlPhoto: "/product-photos/pedrinhas-laranjas-decoracao.jpg",
+    name: "Pedrinhas Laranjas Decoração",
+    isAvailable: true,
+    isPaid: false,
+    supplier: Supplier.JEU,
+    price: 500,
   },
 ]
