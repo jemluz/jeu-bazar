@@ -1,11 +1,14 @@
 "use client"
 
+import { useMemo, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import {
   ShoppingCart,
   Eye,
   User,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
@@ -32,22 +35,78 @@ interface ProductCardProps {
 
 export function ProductCard({ product }: ProductCardProps) {
   const { openWhatsApp } = useWhatsApp()
+  const photos = useMemo(
+    () => (Array.isArray(product.urlPhoto) ? product.urlPhoto : [product.urlPhoto]),
+    [product.urlPhoto]
+  )
+  const [activePhotoIndex, setActivePhotoIndex] = useState(0)
+  const hasPhotoSlide = photos.length > 1
+
+  const currentPhoto = photos[activePhotoIndex] ?? "/product-photos/placeholder.svg"
 
   function handleBuy() {
     const productUrl = `${window.location.origin}/product/${product.id}`
     openWhatsApp(product.name, productUrl)
   }
 
+  function goToPreviousPhoto() {
+    setActivePhotoIndex((currentIndex) =>
+      currentIndex === 0 ? photos.length - 1 : currentIndex - 1
+    )
+  }
+
+  function goToNextPhoto() {
+    setActivePhotoIndex((currentIndex) =>
+      currentIndex === photos.length - 1 ? 0 : currentIndex + 1
+    )
+  }
+
   return (
     <Card className="flex flex-col overflow-hidden shadow-none">
       <div className="relative aspect-square w-full overflow-hidden bg-neutral-100">
         <Image
-          src={product.urlPhoto}
+          src={currentPhoto}
           alt={product.name}
           fill
           className="object-cover transition-transform duration-300 hover:scale-105"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
+
+        {hasPhotoSlide ? (
+          <>
+            <button
+              type="button"
+              onClick={goToPreviousPhoto}
+              className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-black/40 p-1.5 text-white transition hover:bg-black/60"
+              aria-label="Foto anterior"
+            >
+              <ChevronLeft className="h-4 w-4" />
+            </button>
+
+            <button
+              type="button"
+              onClick={goToNextPhoto}
+              className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-black/40 p-1.5 text-white transition hover:bg-black/60"
+              aria-label="Próxima foto"
+            >
+              <ChevronRight className="h-4 w-4" />
+            </button>
+
+            <div className="absolute bottom-2 left-1/2 flex -translate-x-1/2 items-center gap-1.5">
+              {photos.map((photo, index) => (
+                <button
+                  key={`${product.id}-${photo}-${index}`}
+                  type="button"
+                  onClick={() => setActivePhotoIndex(index)}
+                  className={`h-2 w-2 rounded-full transition ${
+                    index === activePhotoIndex ? "bg-white" : "bg-white/50"
+                  }`}
+                  aria-label={`Ir para foto ${index + 1}`}
+                />
+              ))}
+            </div>
+          </>
+        ) : null}
       </div>
 
       <CardHeader className="pb-2">

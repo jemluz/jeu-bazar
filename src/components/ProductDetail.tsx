@@ -24,6 +24,9 @@ interface ProductDetailProps {
 
 export function ProductDetail({ product }: ProductDetailProps) {
   const { openWhatsApp } = useWhatsApp()
+  const mainPhoto = Array.isArray(product.urlPhoto)
+    ? product.urlPhoto[0] ?? "/product-photos/placeholder.svg"
+    : product.urlPhoto
 
   function handleBuy() {
     const productUrl = `${window.location.origin}/product/${product.id}`
@@ -44,7 +47,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
         {/* Image */}
         <div className="relative aspect-square w-full overflow-hidden bg-neutral-100">
           <Image
-            src={product.urlPhoto}
+            src={mainPhoto}
             alt={product.name}
             fill
             className="object-cover"

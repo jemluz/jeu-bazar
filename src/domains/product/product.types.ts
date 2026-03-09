@@ -6,7 +6,7 @@ export enum Supplier {
 
 export interface Product {
   id: number
-  urlPhoto: string
+  urlPhoto: string | string[]
   name: string
   isAvailable: boolean
   isPaid: boolean
