@@ -1,14 +1,17 @@
 "use client"
 
+import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import {
   ArrowLeft,
   ShoppingCart,
-  CheckCircle,
-  XCircle,
   User,
   Tag,
+  Share2,
+  Copy,
+  Check,
+  X,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -24,6 +27,9 @@ interface ProductDetailProps {
 
 export function ProductDetail({ product }: ProductDetailProps) {
   const { openWhatsApp } = useWhatsApp()
+  const [isShareDialogOpen, setIsShareDialogOpen] = useState(false)
+  const [shareUrl, setShareUrl] = useState("")
+  const [isCopied, setIsCopied] = useState(false)
   const mainPhoto = Array.isArray(product.urlPhoto)
     ? product.urlPhoto[0] ?? "/product-photos/placeholder.svg"
     : product.urlPhoto
@@ -31,6 +37,33 @@ export function ProductDetail({ product }: ProductDetailProps) {
   function handleBuy() {
     const productUrl = `${window.location.origin}/product/${product.id}`
     openWhatsApp(product.name, productUrl)
+  }
+
+  function openShareDialog() {
+    const url = `${window.location.origin}/product/${product.id}`
+    setShareUrl(url)
+    setIsCopied(false)
+    setIsShareDialogOpen(true)
+  }
+
+  async function handleCopyShareLink() {
+    if (!shareUrl) {
+      return
+    }
+
+    try {
+      await navigator.clipboard.writeText(shareUrl)
+      setIsCopied(true)
+      return
+    } catch {
+      const fallbackInput = document.createElement("input")
+      fallbackInput.value = shareUrl
+      document.body.appendChild(fallbackInput)
+      fallbackInput.select()
+      document.execCommand("copy")
+      document.body.removeChild(fallbackInput)
+      setIsCopied(true)
+    }
   }
 
   return (
@@ -92,19 +125,76 @@ export function ProductDetail({ product }: ProductDetailProps) {
             </Card>
           </div>
 
-          <Button
-            size="lg"
-            className="w-full"
-            onClick={handleBuy}
-            disabled={!product.isAvailable}
-          >
-            <ShoppingCart className="h-5 w-5" />
-            {product.isAvailable
-              ? "Comprar pelo WhatsApp"
-              : "Produto Indisponível"}
-          </Button>
+          <div className="flex flex-col gap-3">
+            <Button
+              size="lg"
+              className="w-full"
+              onClick={handleBuy}
+              disabled={!product.isAvailable}
+            >
+              <ShoppingCart className="h-5 w-5" />
+              {product.isAvailable
+                ? "Reservar pelo WhatsApp"
+                : "Produto Indisponível"}
+            </Button>
+
+            <Button
+              size="lg"
+              variant="outline"
+              className="w-full"
+              onClick={openShareDialog}
+            >
+              <Share2 className="h-5 w-5" />
+              Compartilhar produto
+            </Button>
+          </div>
         </div>
       </div>
+
+      {isShareDialogOpen ? (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+          onClick={() => setIsShareDialogOpen(false)}
+        >
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby={`share-dialog-title-${product.id}`}
+            onClick={(event) => event.stopPropagation()}
+            className="w-full max-w-md rounded-lg border border-border bg-background p-4 shadow-xl"
+          >
+            <div className="mb-3 flex items-center justify-between">
+              <h3 id={`share-dialog-title-${product.id}`} className="text-base font-semibold text-foreground">
+                Compartilhar produto
+              </h3>
+              <button
+                type="button"
+                aria-label="Fechar compartilhamento"
+                onClick={() => setIsShareDialogOpen(false)}
+                className="rounded-md p-1 text-muted-foreground transition hover:bg-muted hover:text-foreground"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+
+            <label className="mb-2 block text-sm font-medium text-foreground" htmlFor={`share-link-${product.id}`}>
+              Link do produto
+            </label>
+            <input
+              id={`share-link-${product.id}`}
+              type="text"
+              readOnly
+              value={shareUrl}
+              className="mb-3 w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground outline-none"
+            />
+
+            <Button onClick={handleCopyShareLink} className="w-full">
+              {isCopied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+              {isCopied ? "Link copiado" : "Copiar link"}
+            </Button>
+          </div>
+        </div>
+      ) : null}
     </div>
   )
 }

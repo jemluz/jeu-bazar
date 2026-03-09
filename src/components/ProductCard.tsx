@@ -9,6 +9,10 @@ import {
   User,
   ChevronLeft,
   ChevronRight,
+  Share2,
+  Copy,
+  Check,
+  X,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
@@ -40,6 +44,9 @@ export function ProductCard({ product }: ProductCardProps) {
     [product.urlPhoto]
   )
   const [activePhotoIndex, setActivePhotoIndex] = useState(0)
+  const [isShareDialogOpen, setIsShareDialogOpen] = useState(false)
+  const [shareUrl, setShareUrl] = useState("")
+  const [isCopied, setIsCopied] = useState(false)
   const hasPhotoSlide = photos.length > 1
 
   const currentPhoto = photos[activePhotoIndex] ?? "/product-photos/placeholder.svg"
@@ -61,16 +68,44 @@ export function ProductCard({ product }: ProductCardProps) {
     )
   }
 
+  function openShareDialog() {
+    const url = `${window.location.origin}/product/${product.id}`
+    setShareUrl(url)
+    setIsCopied(false)
+    setIsShareDialogOpen(true)
+  }
+
+  async function handleCopyShareLink() {
+    if (!shareUrl) {
+      return
+    }
+
+    try {
+      await navigator.clipboard.writeText(shareUrl)
+      setIsCopied(true)
+      return
+    } catch {
+      const fallbackInput = document.createElement("input")
+      fallbackInput.value = shareUrl
+      document.body.appendChild(fallbackInput)
+      fallbackInput.select()
+      document.execCommand("copy")
+      document.body.removeChild(fallbackInput)
+      setIsCopied(true)
+    }
+  }
+
   return (
-    <Card className="flex flex-col overflow-hidden shadow-none">
-      <div className="relative aspect-square w-full overflow-hidden bg-neutral-100">
-        <Image
-          src={currentPhoto}
-          alt={product.name}
-          fill
-          className="object-cover transition-transform duration-300 hover:scale-105"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-        />
+    <>
+      <Card className="flex flex-col overflow-hidden shadow-none">
+        <div className="relative aspect-square w-full overflow-hidden bg-neutral-100">
+          <Image
+            src={currentPhoto}
+            alt={product.name}
+            fill
+            className="object-cover transition-transform duration-300 hover:scale-105"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          />
 
         {hasPhotoSlide ? (
           <>
@@ -107,46 +142,100 @@ export function ProductCard({ product }: ProductCardProps) {
             </div>
           </>
         ) : null}
-      </div>
-
-      <CardHeader className="pb-2">
-        <div className="top-2">
-          <AvailabilityBadge isAvailable={product.isAvailable} />
         </div>
-        <CardTitle className="text-lg">{product.name}</CardTitle>
-        <div className="flex items-center gap-1 text-sm text-muted-foreground">
-          <User className="h-3.5 w-3.5" />
-          Fornecedor:{" "}
-          <span
-            className={`rounded-lg px-2 py-0.5 text-xs font-medium ${supplierStyles[product.supplier]}`}
+
+        <CardHeader className="pb-2">
+          <div className="top-2">
+            <AvailabilityBadge isAvailable={product.isAvailable} />
+          </div>
+          <CardTitle className="text-lg">{product.name}</CardTitle>
+          <div className="flex items-center gap-1 text-sm text-muted-foreground">
+            <User className="h-3.5 w-3.5" />
+            Fornecedor:{" "}
+            <span
+              className={`rounded-lg px-2 py-0.5 text-xs font-medium ${supplierStyles[product.supplier]}`}
+            >
+              {product.supplier}
+            </span>
+          </div>
+        </CardHeader>
+
+        <CardContent className="pb-4">
+          <p className="text-2xl font-bold text-primary">
+            {formatPrice(product.price)}
+          </p>
+        </CardContent>
+
+        <CardFooter className="mt-auto flex flex-col gap-2">
+          <Button
+            className="w-full hover:bg-pink-600 cursor-pointer"
+            onClick={handleBuy}
+            disabled={!product.isAvailable}
           >
-            {product.supplier}
-          </span>
-        </div>
-      </CardHeader>
+            <ShoppingCart className="h-4 w-4" />
+            Reservar
+          </Button>
+          <Button variant="outline" className="w-full hover:text-pink-500 cursor-pointer hover:bg-transparent hover:border-pink-500" asChild>
+            <Link href={`/product/${product.id}`}>
+              <Eye className="h-4 w-4" />
+              Ver detalhes
+            </Link>
+          </Button>
+          <Button
+            variant="outline"
+            className="w-full cursor-pointer hover:bg-transparent"
+            onClick={openShareDialog}
+          >
+            <Share2 className="h-4 w-4" />
+            Compartilhar
+          </Button>
+        </CardFooter>
+      </Card>
 
-      <CardContent className="pb-4">
-        <p className="text-2xl font-bold text-primary">
-          {formatPrice(product.price)}
-        </p>
-      </CardContent>
-
-      <CardFooter className="mt-auto flex flex-col gap-2">
-        <Button
-          className="w-full hover:bg-pink-600 cursor-pointer"
-          onClick={handleBuy}
-          disabled={!product.isAvailable}
+      {isShareDialogOpen ? (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+          onClick={() => setIsShareDialogOpen(false)}
         >
-          <ShoppingCart className="h-4 w-4" />
-          Reservar
-        </Button>
-        <Button variant="outline" className="w-full hover:text-pink-500 cursor-pointer hover:bg-transparent hover:border-pink-500" asChild>
-          <Link href={`/product/${product.id}`}>
-            <Eye className="h-4 w-4" />
-            Ver detalhes
-          </Link>
-        </Button>
-      </CardFooter>
-    </Card>
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby={`share-dialog-title-${product.id}`}
+            onClick={(event) => event.stopPropagation()}
+            className="w-full max-w-md rounded-lg border border-border bg-background p-4 shadow-xl"
+          >
+            <div className="mb-3 flex items-center justify-between">
+              <h3 id={`share-dialog-title-${product.id}`} className="text-base font-semibold text-foreground">
+                Compartilhar produto
+              </h3>
+              <button
+                type="button"
+                aria-label="Fechar compartilhamento"
+                onClick={() => setIsShareDialogOpen(false)}
+                className="rounded-md p-1 text-muted-foreground transition hover:bg-muted hover:text-foreground"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+
+            <label className="mb-2 block text-sm font-medium text-foreground" htmlFor={`share-link-${product.id}`}>
+              Link do produto
+            </label>
+            <input
+              id={`share-link-${product.id}`}
+              type="text"
+              readOnly
+              value={shareUrl}
+              className="mb-3 w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground outline-none"
+            />
+
+            <Button onClick={handleCopyShareLink} className="w-full">
+              {isCopied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+              {isCopied ? "Link copiado" : "Copiar link"}
+            </Button>
+          </div>
+        </div>
+      ) : null}
+    </>
   )
 }
