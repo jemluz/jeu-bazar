@@ -255,7 +255,7 @@ export const productData: Product[] = [
   },
   {
     id: 29,
-    urlPhoto: "/product-photos/placeholder.svg",
+    urlPhoto: ["/product-photos/termometro-cozinha-1.jpg", "/product-photos/termometro-cozinha-2.jpg"],
     name: "Termometro de cozinha",
     isAvailable: true,
     isPaid: false,
@@ -318,7 +318,7 @@ export const productData: Product[] = [
   },
   {
     id: 36,
-    urlPhoto: "/product-photos/placeholder.svg",
+    urlPhoto: ["/product-photos/cortador-verduras-1.jpg", "/product-photos/cortador-verduras-2.jpg"],
     name: "Cortador de verduras",
     isAvailable: true,
     isPaid: false,
@@ -480,7 +480,7 @@ export const productData: Product[] = [
   },
   {
     id: 54,
-    urlPhoto: "/product-photos/placeholder.svg",
+    urlPhoto: ["/product-photos/porta-colher-lyor-1.jpg", "/product-photos/porta-colher-lyor-2.jpg", "/product-photos/porta-colher-lyor-3.jpg"],
     name: "Porta colher Lyor",
     isAvailable: true,
     isPaid: false,
@@ -570,16 +570,16 @@ export const productData: Product[] = [
   },
   {
     id: 64,
-    urlPhoto: "/product-photos/placeholder.svg",
-    name: "Porta Retrato",
+    urlPhoto: "/product-photos/porta-retrato-vermelho.jpg",
+    name: "Porta Retrato Vermelho",
     isAvailable: true,
     isPaid: false,
     supplier: Supplier.JEU,
-    price: 3000,
+    price: 1000,
   },
   {
     id: 65,
-    urlPhoto: "/product-photos/placeholder.svg",
+    urlPhoto: ["/product-photos/prato-vidro-bolo-1.jpg", "/product-photos/prato-vidro-bolo-2.jpg"],
     name: "Prato de Vidro para Bolo",
     isAvailable: true,
     isPaid: false,
@@ -597,7 +597,7 @@ export const productData: Product[] = [
   },
   {
     id: 67,
-    urlPhoto: "/product-photos/placeholder.svg",
+    urlPhoto: ["/product-photos/prato-vidro-bolo-1.jpg", "/product-photos/prato-vidro-bolo-2.jpg"],
     name: "Prato de Vidro para Bolo",
     isAvailable: true,
     isPaid: false,
@@ -759,7 +759,7 @@ export const productData: Product[] = [
   },
   {
     id: 85,
-    urlPhoto: "/product-photos/placeholder.svg",
+    urlPhoto: ["/product-photos/xicara-lyor-1.jpg", "/product-photos/xicara-lyor-2.jpg"],
     name: "2 Xícaras de Chá Lyor",
     isAvailable: true,
     isPaid: false,
@@ -948,7 +948,7 @@ export const productData: Product[] = [
   },
   {
     id: 106,
-    urlPhoto: "/product-photos/placeholder.svg",
+    urlPhoto: ["/product-photos/tesoura-alimento-1.jpg", "/product-photos/tesoura-alimento-2.jpg", "/product-photos/tesoura-alimento-3.jpg"],
     name: "Tesoura para Alimento",
     isAvailable: false,
     isPaid: true,
@@ -975,7 +975,7 @@ export const productData: Product[] = [
   },
   {
     id: 109,
-    urlPhoto: "/product-photos/placeholder.svg",
+    urlPhoto: ["/product-photos/kit-ovos-1.jpg", "/product-photos/kit-ovos-2.jpg", "/product-photos/kit-ovos-3.jpg"],
     name: "Kit para Ovos",
     isAvailable: true,
     isPaid: false,
@@ -1110,7 +1110,7 @@ export const productData: Product[] = [
   },
   {
     id: 124,
-    urlPhoto: "/product-photos/placeholder.svg",
+    urlPhoto: "/product-photos/kit-colher-bamboo-4pcs.jpg",
     name: "Kit 4 Colheres Bamboo",
     isAvailable: true,
     isPaid: false,
@@ -1210,7 +1210,7 @@ export const productData: Product[] = [
   {
     id: 135,
     urlPhoto: "/product-photos/placeholder.svg",
-    name: "Conjunto Mesa & 4 Cadeiras",
+    name: "Conjunto Pizane Mesa & 4 Cadeiras",
     isAvailable: true,
     isPaid: false,
     supplier: Supplier.JEU,
@@ -1219,7 +1219,7 @@ export const productData: Product[] = [
   {
     id: 136,
     urlPhoto: "/product-photos/placeholder.svg",
-    name: "Conjunto Mesa & 4 Cadeiras",
+    name: "Conjunto Pizane Mesa & 4 Cadeiras",
     isAvailable: true,
     isPaid: false,
     supplier: Supplier.JEU,
@@ -1236,7 +1236,7 @@ export const productData: Product[] = [
   },
   {
     id: 138,
-    urlPhoto: "/product-photos/placeholder.svg",
+    urlPhoto: "/product-photos/oculos.jpg",
     name: "Óculos",
     isAvailable: true,
     isPaid: false,
@@ -1299,7 +1299,7 @@ export const productData: Product[] = [
   },
   {
     id: 145,
-    urlPhoto: "/product-photos/placeholder.svg",
+    urlPhoto: ["/product-photos/porta-alho-tup-1.jpg", "/product-photos/porta-alho-tup-2.jpg"],
     name: "Porta Alho Tupperware",
     isAvailable: true,
     isPaid: false,
@@ -1368,5 +1368,23 @@ export const productData: Product[] = [
     isPaid: false,
     supplier: Supplier.JEU,
     price: 0,
+  },
+  {
+    id: 153,
+    urlPhoto: "/product-photos/placeholder.svg",
+    name: "Porta Retrato Marron",
+    isAvailable: true,
+    isPaid: false,
+    supplier: Supplier.JEU,
+    price: 3000,
+  },
+  {
+    id: 154,
+    urlPhoto: "/product-photos/vaso-pedra-decorativo.jpg",
+    name: "Vaso Pedra Decorativo",
+    isAvailable: true,
+    isPaid: false,
+    supplier: Supplier.JEU,
+    price: 2000,
   },
 ]
