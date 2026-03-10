@@ -263,7 +263,7 @@ export const productData: Product[] = [
   },
   {
     id: 27,
-    urlPhoto: "/product-photos/placeholder.svg",
+    urlPhoto: "/product-photos/bomboneira-doceira.jpg",
     name: "Bomboneira/Doceira",
     isAvailable: true,
     isPaid: false,

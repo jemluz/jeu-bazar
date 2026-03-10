@@ -1,6 +1,7 @@
 "use client"
 
-import { useMemo, useState } from "react"
+import { useMemo, useEffect, useCallback, useState, useRef } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
 import { productData } from "@/domains/product/product.data"
 import { Supplier } from "@/domains/product/product.types"
 import { ProductFilters } from "@/components/ProductFilters"
@@ -11,9 +12,22 @@ import { Header } from "@/components/Header"
 type StatusFilter = "all" | "sold" | "available"
 
 export default function VitrinePage() {
-  const [search, setSearch] = useState("")
-  const [statusFilter, setStatusFilter] = useState<StatusFilter>("all")
-  const [selectedSuppliers, setSelectedSuppliers] = useState<Supplier[]>([])
+  const router = useRouter()
+  const searchParams = useSearchParams()
+
+  // Inicializa os filtros a partir da URL
+  const searchFromUrl = searchParams.get("search") || ""
+  const statusFilter = (searchParams.get("status") as StatusFilter) || "all"
+  const selectedSuppliers = searchParams.getAll("supplier") as Supplier[]
+
+  // Estado local para o campo de busca
+  const [search, setSearch] = useState(searchFromUrl)
+  const debounceTimeout = useRef<NodeJS.Timeout | null>(null)
+
+  // Sincroniza o estado local com a URL ao mudar a query string externamente
+  useEffect(() => {
+    setSearch(searchFromUrl)
+  }, [searchFromUrl])
   const totalProducts = productData.length
   const soldProducts = productData.filter((product) => !product.isAvailable).length
   const availableProducts = totalProducts - soldProducts
@@ -29,18 +43,61 @@ export default function VitrinePage() {
     .trim()
   const hasActiveFilters = statusFilter !== "all" || selectedSuppliers.length > 0 || Boolean(search)
 
-  function toggleSupplier(supplier: Supplier) {
-    setSelectedSuppliers((currentSuppliers) =>
-      currentSuppliers.includes(supplier)
-        ? currentSuppliers.filter((currentSupplier) => currentSupplier !== supplier)
-        : [...currentSuppliers, supplier]
-    )
+
+  // Função para atualizar a URL com os filtros
+  const updateFilters = useCallback((filters: {
+    search?: string
+    status?: StatusFilter
+    suppliers?: Supplier[]
+  }) => {
+    const params = new URLSearchParams(searchParams.toString())
+    if (filters.search !== undefined) {
+      if (filters.search) {
+        params.set("search", filters.search)
+      } else {
+        params.delete("search")
+      }
+    }
+    if (filters.status !== undefined) {
+      if (filters.status && filters.status !== "all") {
+        params.set("status", filters.status)
+      } else {
+        params.delete("status")
+      }
+    }
+    if (filters.suppliers !== undefined) {
+      params.delete("supplier")
+      filters.suppliers.forEach((s) => params.append("supplier", s))
+    }
+    router.replace(`?${params.toString()}`)
+  }, [router, searchParams])
+
+  function onStatusChange(status: StatusFilter) {
+    updateFilters({ status })
   }
 
-  function clearFilters() {
-    setSearch("")
-    setStatusFilter("all")
-    setSelectedSuppliers([])
+  function onSupplierToggle(supplier: Supplier) {
+    const current = new Set(selectedSuppliers)
+    if (current.has(supplier)) {
+      current.delete(supplier)
+    } else {
+      current.add(supplier)
+    }
+    updateFilters({ suppliers: Array.from(current) as Supplier[] })
+  }
+
+  function onSearchChange(value: string) {
+    setSearch(value)
+    if (debounceTimeout.current) {
+      clearTimeout(debounceTimeout.current)
+    }
+    debounceTimeout.current = setTimeout(() => {
+      updateFilters({ search: value })
+    }, 400)
+  }
+
+  function onClearFilters() {
+    updateFilters({ search: "", status: "all", suppliers: [] })
   }
 
   const filteredProducts = useMemo(() => {
@@ -89,10 +146,10 @@ export default function VitrinePage() {
           supplierOptions={supplierOptions}
           search={search}
           hasActiveFilters={hasActiveFilters}
-          onStatusChange={setStatusFilter}
-          onSupplierToggle={toggleSupplier}
-          onSearchChange={setSearch}
-          onClearFilters={clearFilters}
+          onStatusChange={onStatusChange}
+          onSupplierToggle={onSupplierToggle}
+          onSearchChange={onSearchChange}
+          onClearFilters={onClearFilters}
         />
 
         {filteredProducts.length === 0 ? (
