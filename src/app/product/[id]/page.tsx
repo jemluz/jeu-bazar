@@ -18,10 +18,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
   return (
     <main className="min-h-screen bg-background">
-      <Header maxWidthClass="max-w-5xl" />
-
-      <PaymentWarning />
-      
+      <PaymentWarning />      
 
       <ProductDetail product={product} />
     </main>

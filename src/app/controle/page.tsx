@@ -104,8 +104,6 @@ export default function ControlePage() {
 
   return (
     <main className="min-h-screen bg-background">
-      <Header maxWidthClass="max-w-7xl" />
-
       <section className="mx-auto max-w-7xl px-6 py-8">
         <div className="mb-5 flex flex-col gap-2">
           <h2 className="text-xl font-bold text-foreground">Controle de Produtos</h2>

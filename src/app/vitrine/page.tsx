@@ -64,8 +64,6 @@ export default function VitrinePage() {
 
   return (
     <main className="min-h-screen bg-background">
-      <Header maxWidthClass="max-w-7xl" />
-
       <PaymentWarning />
 
       <section className="mx-auto max-w-7xl px-6 py-8">

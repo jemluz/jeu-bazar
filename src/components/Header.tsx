@@ -13,6 +13,7 @@ export function Header({ maxWidthClass = "max-w-7xl" }: HeaderProps) {
           <h1 className="text-2xl font-bold text-foreground">Bazar da Jeu</h1>
           <p className="text-sm text-muted-foreground">
             Tudo é diferente quanto muda, e eu estou de mudança...{" "}
+            <br />
             <strong>Corra</strong> que eu já estou correndo por aqui também!
           </p>
         </div>
