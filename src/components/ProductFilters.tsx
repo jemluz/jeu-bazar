@@ -128,6 +128,7 @@ export function ProductFilters({
             placeholder="Pesquisar por nome do produto..."
             value={search}
             onChange={(event) => onSearchChange(event.target.value)}
+            onBlur={(event) => onSearchChange(event.target.value, true)}
             className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground outline-none transition focus:border-ring focus:ring-2 focus:ring-ring/20"
             aria-label="Pesquisar produtos por nome"
           />

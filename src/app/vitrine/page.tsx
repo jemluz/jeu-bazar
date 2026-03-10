@@ -1,6 +1,6 @@
 "use client"
 
-import { useMemo, useEffect, useCallback, useState, useRef } from "react"
+import { useMemo, useEffect, useCallback, useState } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { productData } from "@/domains/product/product.data"
 import { Supplier } from "@/domains/product/product.types"
@@ -22,7 +22,6 @@ export default function VitrinePage() {
 
   // Estado local para o campo de busca
   const [search, setSearch] = useState(searchFromUrl)
-  const debounceTimeout = useRef<NodeJS.Timeout | null>(null)
 
   // Sincroniza o estado local com a URL ao mudar a query string externamente
   useEffect(() => {
@@ -86,14 +85,12 @@ export default function VitrinePage() {
     updateFilters({ suppliers: Array.from(current) as Supplier[] })
   }
 
-  function onSearchChange(value: string) {
+  // onSearchChange agora aceita um segundo argumento: forceUpdate
+  function onSearchChange(value: string, forceUpdate = false) {
     setSearch(value)
-    if (debounceTimeout.current) {
-      clearTimeout(debounceTimeout.current)
-    }
-    debounceTimeout.current = setTimeout(() => {
+    if (forceUpdate) {
       updateFilters({ search: value })
-    }, 400)
+    }
   }
 
   function onClearFilters() {
