@@ -28,7 +28,7 @@ interface ProductFiltersProps {
   hasActiveFilters: boolean
   onStatusChange: (status: StatusFilter) => void
   onSupplierToggle: (supplier: Supplier) => void
-  onSearchChange: (value: string) => void
+  onSearchChange: (value: string, forceUpdate?: boolean) => void
   onClearFilters: () => void
 }
 
