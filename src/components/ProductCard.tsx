@@ -178,7 +178,7 @@ export function ProductCard({ product }: ProductCardProps) {
           </Button>
           <Button
             variant="outline"
-            className="w-full cursor-pointer hover:bg-transparent"
+            className="w-full cursor-pointer hover:text-pink-500 hover:bg-transparent hover:border-pink-500"
             onClick={openShareDialog}
           >
             <Share2 className="h-4 w-4" />
