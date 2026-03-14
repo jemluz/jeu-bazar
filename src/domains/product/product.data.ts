@@ -1293,8 +1293,8 @@ export const productData: Product[] = [
   },
   {
     id: 132,
-    urlPhoto: "/product-photos/placeholder.svg",
-    name: "Quadro de Madeira",
+    urlPhoto: "/product-photos/quadro-madeira.jpeg",
+    name: "Quadro de Madeira Grande (97cm x 71cm)",
     isAvailable: true,
     isPaid: false,
     supplier: Supplier.JEU,
@@ -1303,7 +1303,7 @@ export const productData: Product[] = [
   },
   {
     id: 133,
-    urlPhoto: "/product-photos/placeholder.svg",
+    urlPhoto: ["/product-photos/carrinho-bebe-1.jpeg", "/product-photos/carrinho-bebe-2.jpeg"],
     name: "Carrinho Bebê",
     isAvailable: true,
     isPaid: false,

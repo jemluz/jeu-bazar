@@ -90,6 +90,7 @@ export function ProductCard({ product }: ProductCardProps) {
     }
   }
 
+
   return (
     <>
       <Card className="flex flex-col overflow-hidden shadow-none">
@@ -101,42 +102,48 @@ export function ProductCard({ product }: ProductCardProps) {
             className="object-cover transition-transform duration-300 hover:scale-105"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
-
-        {hasPhotoSlide ? (
-          <>
-            <button
-              type="button"
-              onClick={goToPreviousPhoto}
-              className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-black/40 p-1.5 text-white transition hover:bg-black/60"
-              aria-label="Foto anterior"
-            >
-              <ChevronLeft className="h-4 w-4" />
-            </button>
-
-            <button
-              type="button"
-              onClick={goToNextPhoto}
-              className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-black/40 p-1.5 text-white transition hover:bg-black/60"
-              aria-label="Próxima foto"
-            >
-              <ChevronRight className="h-4 w-4" />
-            </button>
-
-            <div className="absolute bottom-2 left-1/2 flex -translate-x-1/2 items-center gap-1.5">
-              {photos.map((photo, index) => (
-                <button
-                  key={`${product.id}-${photo}-${index}`}
-                  type="button"
-                  onClick={() => setActivePhotoIndex(index)}
-                  className={`h-2 w-2 rounded-full transition ${
-                    index === activePhotoIndex ? "bg-white" : "bg-white/50"
-                  }`}
-                  aria-label={`Ir para foto ${index + 1}`}
-                />
-              ))}
+          {/* Filtro vermelho para produtos vendidos */}
+          {!product.isAvailable && (
+            <div className="absolute flex items-center justify-center inset-0 bg-red-600/20 pointer-events-none z-10">
+              <h1 className="font-bold text-red-600 bg-red-100 px-4 py-1 rounded-full mt-4">VENDIDO</h1>
             </div>
-          </>
-        ) : null}
+          )}
+
+          {hasPhotoSlide ? (
+            <>
+              <button
+                type="button"
+                onClick={goToPreviousPhoto}
+                className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-black/40 p-1.5 text-white transition hover:bg-black/60 z-20"
+                aria-label="Foto anterior"
+              >
+                <ChevronLeft className="h-4 w-4" />
+              </button>
+
+              <button
+                type="button"
+                onClick={goToNextPhoto}
+                className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-black/40 p-1.5 text-white transition hover:bg-black/60 z-20"
+                aria-label="Próxima foto"
+              >
+                <ChevronRight className="h-4 w-4" />
+              </button>
+
+              <div className="absolute bottom-2 left-1/2 flex -translate-x-1/2 items-center gap-1.5 z-20">
+                {photos.map((photo, index) => (
+                  <button
+                    key={`${product.id}-${photo}-${index}`}
+                    type="button"
+                    onClick={() => setActivePhotoIndex(index)}
+                    className={`h-2 w-2 rounded-full transition ${
+                      index === activePhotoIndex ? "bg-white" : "bg-white/50"
+                    }`}
+                    aria-label={`Ir para foto ${index + 1}`}
+                  />
+                ))}
+              </div>
+            </>
+          ) : null}
         </div>
 
         <CardHeader className="pb-2">
