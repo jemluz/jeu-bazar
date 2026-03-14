@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react"
 import Image from "next/image"
-import { PAID_STYLES, SUPPLIER_STYLES } from "@/domains/product/product.constants"
+import { PAID_STYLES, SUPPLIER_STYLES, supplierFilterStyles } from "@/domains/product/product.constants"
 import { productData } from "@/domains/product/product.data"
 import { PaymentStatus, Supplier, type Product } from "@/domains/product/product.types"
 import { formatPrice } from "@/domains/product/product.utils"
@@ -14,20 +14,7 @@ type PageSize = 20 | 50 | 100 | "all"
 
 const PAGE_SIZE_OPTIONS: PageSize[] = [20, 50, 100, "all"]
 
-const supplierFilterStyles: Record<Supplier, { active: string; inactive: string }> = {
-  [Supplier.JEU]: {
-    active: "border-pink-500 bg-pink-50 text-pink-600",
-    inactive: "border-border bg-background text-foreground hover:border-pink-400 hover:text-pink-600",
-  },
-  [Supplier.LENI]: {
-    active: "border-orange-500 bg-orange-50 text-orange-600",
-    inactive: "border-border bg-background text-foreground hover:border-orange-400 hover:text-orange-600",
-  },
-  [Supplier.MIRIAM]: {
-    active: "border-purple-500 bg-purple-50 text-purple-600",
-    inactive: "border-border bg-background text-foreground hover:border-purple-400 hover:text-purple-600",
-  },
-}
+
 
 function normalizeText(value: string): string {
   return value
