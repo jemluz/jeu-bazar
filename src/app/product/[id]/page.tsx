@@ -2,7 +2,6 @@ import { notFound } from "next/navigation"
 import { productData } from "@/domains/product/product.data"
 import { ProductDetail } from "@/components/ProductDetail"
 import { PaymentWarning } from "@/components/PaymentWarning"
-import { Header } from "@/components/Header"
 
 interface ProductPageProps {
   params: Promise<{ id: string }>

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import {
@@ -12,6 +12,8 @@ import {
   Copy,
   Check,
   X,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -29,9 +31,15 @@ export function ProductDetail({ product }: ProductDetailProps) {
   const [isShareDialogOpen, setIsShareDialogOpen] = useState(false)
   const [shareUrl, setShareUrl] = useState("")
   const [isCopied, setIsCopied] = useState(false)
-  const mainPhoto = Array.isArray(product.urlPhoto)
-    ? product.urlPhoto[0] ?? "/product-photos/placeholder.svg"
-    : product.urlPhoto
+
+  const photos = useMemo(
+      () => (Array.isArray(product.urlPhoto) ? product.urlPhoto : [product.urlPhoto]),
+      [product.urlPhoto]
+    )
+  const [activePhotoIndex, setActivePhotoIndex] = useState(0)
+  const hasPhotoSlide = photos.length > 1
+
+  const currentPhoto = photos[activePhotoIndex] ?? "/product-photos/placeholder.svg"
 
   function handleBuy() {
     const productUrl = `${window.location.origin}/product/${product.id}`
@@ -43,6 +51,18 @@ export function ProductDetail({ product }: ProductDetailProps) {
     setShareUrl(url)
     setIsCopied(false)
     setIsShareDialogOpen(true)
+  }
+
+  function goToPreviousPhoto() {
+    setActivePhotoIndex((currentIndex) =>
+      currentIndex === 0 ? photos.length - 1 : currentIndex - 1
+    )
+  }
+
+  function goToNextPhoto() {
+    setActivePhotoIndex((currentIndex) =>
+      currentIndex === photos.length - 1 ? 0 : currentIndex + 1
+    )
   }
 
   async function handleCopyShareLink() {
@@ -79,13 +99,49 @@ export function ProductDetail({ product }: ProductDetailProps) {
         {/* Image */}
         <div className="relative aspect-square w-full overflow-hidden bg-neutral-100">
           <Image
-            src={mainPhoto}
+            src={currentPhoto}
             alt={product.name}
             fill
             className="object-cover"
             sizes="(max-width: 768px) 100vw, 50vw"
             priority
           />
+
+          {hasPhotoSlide ? (
+          <>
+            <button
+              type="button"
+              onClick={goToPreviousPhoto}
+              className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-black/40 p-1.5 text-white transition hover:bg-black/60"
+              aria-label="Foto anterior"
+            >
+              <ChevronLeft className="h-4 w-4" />
+            </button>
+
+            <button
+              type="button"
+              onClick={goToNextPhoto}
+              className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-black/40 p-1.5 text-white transition hover:bg-black/60"
+              aria-label="Próxima foto"
+            >
+              <ChevronRight className="h-4 w-4" />
+            </button>
+
+            <div className="absolute bottom-2 left-1/2 flex -translate-x-1/2 items-center gap-1.5">
+              {photos.map((photo, index) => (
+                <button
+                  key={`${product.id}-${photo}-${index}`}
+                  type="button"
+                  onClick={() => setActivePhotoIndex(index)}
+                  className={`h-2 w-2 rounded-full transition ${
+                    index === activePhotoIndex ? "bg-white" : "bg-white/50"
+                  }`}
+                  aria-label={`Ir para foto ${index + 1}`}
+                />
+              ))}
+            </div>
+          </>
+        ) : null}
         </div>
 
         {/* Details */}
