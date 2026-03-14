@@ -2,6 +2,7 @@ import { notFound } from "next/navigation"
 import { productData } from "@/domains/product/product.data"
 import { ProductDetail } from "@/components/ProductDetail"
 import { PaymentWarning } from "@/components/PaymentWarning"
+import { SoldWarning } from "@/components/SoldWarning"
 
 interface ProductPageProps {
   params: Promise<{ id: string }>
@@ -17,7 +18,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
   return (
     <main className="min-h-screen bg-background">
-      <PaymentWarning />      
+      <PaymentWarning />
+
+      {!product.isAvailable && <SoldWarning />}
 
       <ProductDetail product={product} />
     </main>
