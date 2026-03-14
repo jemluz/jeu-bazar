@@ -46,7 +46,8 @@ function getPrimaryPhoto(urlPhoto: Product["urlPhoto"]): string {
 }
 
 export default function ControlePage() {
-  const [search, setSearch] = useState("")
+  const [nameSearch, setNameSearch] = useState("")
+  const [idSearch, setIdSearch] = useState("")
   const [statusFilter, setStatusFilter] = useState<StatusFilter>("all")
   const [selectedSuppliers, setSelectedSuppliers] = useState<Supplier[]>([])
   const [pageSize, setPageSize] = useState<PageSize>(20)
@@ -58,13 +59,14 @@ export default function ControlePage() {
     []
   )
 
-  const normalizedSearch = useMemo(() => normalizeText(search), [search])
-  const hasActiveFilters = statusFilter !== "all" || selectedSuppliers.length > 0 || Boolean(search)
+  const normalizedNameSearch = useMemo(() => normalizeText(nameSearch), [nameSearch])
+  const hasActiveFilters = statusFilter !== "all" || selectedSuppliers.length > 0 || Boolean(nameSearch) || Boolean(idSearch)
 
   const filteredProducts = useMemo(() => {
     return productData.filter((product) => {
       const normalizedName = normalizeText(product.name)
-      const matchesSearch = !normalizedSearch || normalizedName.includes(normalizedSearch)
+      const matchesSearch = !normalizedNameSearch || normalizedName.includes(normalizedNameSearch)
+      const matchesId = !idSearch || String(product.id) === idSearch
       const matchesStatus =
         statusFilter === "all" ||
         (statusFilter === "available" && product.isAvailable) ||
@@ -72,9 +74,9 @@ export default function ControlePage() {
       const matchesSupplier =
         selectedSuppliers.length === 0 || selectedSuppliers.includes(product.supplier)
 
-      return matchesSearch && matchesStatus && matchesSupplier
+      return matchesSearch && matchesId && matchesStatus && matchesSupplier
     })
-  }, [normalizedSearch, selectedSuppliers, statusFilter])
+  }, [normalizedNameSearch, idSearch, selectedSuppliers, statusFilter])
 
   const totalPrice = useMemo(
     () => filteredProducts.reduce((sum, product) => sum + product.price, 0),
@@ -100,9 +102,12 @@ export default function ControlePage() {
     return filteredProducts.slice(startIndex, startIndex + pageSize)
   }, [currentPage, filteredProducts, pageSize])
 
-  function onSearchChange(value: string) {
-    setSearch(value)
-    console.log("Search changed:", value)
+  function onNameSearchChange(value: string) {
+    setNameSearch(value)
+  }
+
+  function onIdSearchChange(value: string) {
+    setIdSearch(value)
   }
 
   function onStatusChange(status: StatusFilter) {
@@ -121,7 +126,8 @@ export default function ControlePage() {
 
   function clearFilters() {
     setRequestedPage(1)
-    setSearch("")
+    setNameSearch("")
+    setIdSearch("")
     setStatusFilter("all")
     setSelectedSuppliers([])
   }
@@ -219,11 +225,26 @@ export default function ControlePage() {
                 </p>
                 <input
                   type="search"
-                  placeholder="Pesquisar por nome do produto..."
-                  value={search}
-                  onChange={(event) => onSearchChange(event.target.value)}
+                  placeholder="Ex: Porta retrato"
+                  value={nameSearch}
+                  onChange={(event) => onNameSearchChange(event.target.value)}
                   className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground outline-none transition focus:border-ring focus:ring-2 focus:ring-ring/20"
                   aria-label="Pesquisar produtos por nome"
+                />
+              </div>
+
+              <div className="flex flex-1 flex-col gap-2">
+                <p className="flex items-center gap-1.5 text-sm font-semibold text-foreground">
+                  <Search className="h-4 w-4" />
+                  Filtrar por ID
+                </p>
+                <input
+                  type="number"
+                  placeholder="Ex: 164"
+                  value={idSearch}
+                  onChange={(event) => onIdSearchChange(event.target.value)}
+                  className="w-24 rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground outline-none transition focus:border-ring focus:ring-2 focus:ring-ring/20"
+                  aria-label="Pesquisar produtos por ID"
                 />
               </div>
             </div>

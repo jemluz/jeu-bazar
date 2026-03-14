@@ -59,7 +59,7 @@ export const productData: Product[] = [
     isPaid: false,
     supplier: Supplier.MIRIAM,
     price: 8000,
-    purchaser: "",
+    purchaser: "Denizia",
   },
   {
     id: 7,
@@ -99,7 +99,7 @@ export const productData: Product[] = [
     isPaid: false,
     supplier: Supplier.MIRIAM,
     price: 20000,
-    purchaser: "",
+    purchaser: "José",
   },
   {
     id: 11,
@@ -129,7 +129,7 @@ export const productData: Product[] = [
     isPaid: false,
     supplier: Supplier.MIRIAM,
     price: 1000,
-    purchaser: "",
+    purchaser: "Ivete",
   },
   {
     id: 14,
@@ -619,7 +619,7 @@ export const productData: Product[] = [
     isPaid: false,
     supplier: Supplier.JEU,
     price: 1000,
-    purchaser: "",
+    purchaser: "Ivete",
   },
   {
     id: 65,
@@ -986,10 +986,10 @@ export const productData: Product[] = [
     urlPhoto: "/product-photos/kit-mesa-infantil-cadeiras.jpg",
     name: "Mesa Infantil com 2 Cadeiras",
     isAvailable: false,
-    isPaid: false,
+    isPaid: true,
     supplier: Supplier.JEU,
     price: 6000,
-    purchaser: "",
+    purchaser: "Cláudia",
   },
   {
     id: 103,
@@ -1125,7 +1125,7 @@ export const productData: Product[] = [
     id: 116,
     urlPhoto: "/product-photos/colher-grande.jpg",
     name: "Colher Grande",
-    isAvailable: false,
+    isAvailable: true,
     isPaid: false,
     supplier: Supplier.JEU,
     price: 1000,
@@ -1319,7 +1319,7 @@ export const productData: Product[] = [
     isPaid: false,
     supplier: Supplier.JEU,
     price: 18000,
-    purchaser: "",
+    purchaser: "Cláudia",
   },
   {
     id: 136,
@@ -1419,7 +1419,7 @@ export const productData: Product[] = [
     isPaid: false,
     supplier: Supplier.JEU,
     price: 1500,
-    purchaser: "",
+    purchaser: "Ivete",
   },
   {
     id: 146,
@@ -1499,7 +1499,7 @@ export const productData: Product[] = [
     isPaid: false,
     supplier: Supplier.JEU,
     price: 2000,
-    purchaser: "",
+    purchaser: "Jerusa",
   },
   {
     id: 154,
@@ -1558,7 +1558,7 @@ export const productData: Product[] = [
     isAvailable: false,
     isPaid: false,
     supplier: Supplier.JEU,
-    price: 0,
+    price: 2000,
     purchaser: "",
   },
   {
@@ -1739,7 +1739,7 @@ export const productData: Product[] = [
     isPaid: false,
     supplier: Supplier.LENI,
     price: 1000,
-    purchaser: "",
+    purchaser: "Jerusa",
   },
 ]
 
