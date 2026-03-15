@@ -14,7 +14,7 @@ import {
   Users,
 } from 'lucide-react';
 import { supplierFilterStyles } from '@/domains/product/product.constants';
-import { CatalogCounter } from '@/components/CatalogCounter';
+import { VitrineTitle } from '@/components/VitrineTitle';
 
 type StatusFilter = 'all' | 'sold' | 'available';
 
@@ -31,12 +31,6 @@ function VitrinePageContent() {
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState<StatusFilter>('all');
   const [selectedSuppliers, setSelectedSuppliers] = useState<Supplier[]>([]);
-
-  const totalProducts = productData.length;
-  const soldProducts = productData.filter(
-    (product) => !product.isAvailable,
-  ).length;
-  const availableProducts = totalProducts - soldProducts;
 
   const supplierOptions = useMemo(
     () => Array.from(new Set(productData.map((product) => product.supplier))),
@@ -103,18 +97,7 @@ function VitrinePageContent() {
       <PaymentWarning />
 
       <section className="mx-auto max-w-7xl px-6 py-8">
-        <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <h2 className="text-xl font-bold text-foreground">
-              Vitrine de Produtos
-            </h2>
-            <CatalogCounter
-              totalProducts={totalProducts}
-              soldProducts={soldProducts}
-              availableProducts={availableProducts}
-            />
-          </div>
-        </div>
+        <VitrineTitle />
 
         <div className="mb-6 flex flex-col gap-4 rounded-lg border border-border p-4 sm:flex-row sm:items-start sm:gap-6">
           <div className="flex flex-col gap-4 sm:flex-1 sm:flex-row sm:items-start sm:gap-6">
