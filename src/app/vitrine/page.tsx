@@ -16,6 +16,8 @@ import {
 import { supplierFilterStyles } from '@/domains/product/product.constants';
 import { VitrineTitle } from '@/components/VitrineTitle';
 import { ProductProvider } from '@/contexts/ProductContext';
+import { FilterLabel } from '@/components/FilterLabel';
+import FilterOption from '@/components/FilterOption';
 
 type StatusFilter = 'all' | 'sold' | 'available';
 
@@ -105,55 +107,48 @@ function VitrinePageContent() {
         <div className="mb-6 flex flex-col gap-4 rounded-lg border border-border p-4 sm:flex-row sm:items-start sm:gap-6">
           <div className="flex flex-col gap-4 sm:flex-1 sm:flex-row sm:items-start sm:gap-6">
             <div className="flex flex-1 flex-col gap-2">
-              <p className="flex items-center gap-1.5 text-sm font-semibold text-foreground">
+              <FilterLabel>
                 <Tag className="h-4 w-4" />
                 Filtrar por status
-              </p>
+              </FilterLabel>
 
               <div className="flex flex-wrap gap-2">
-                <button
-                  type="button"
-                  onClick={() => onStatusChange('all')}
-                  className={`rounded-full border px-3 py-1 text-sm transition ${
-                    statusFilter === 'all'
-                      ? 'border-pink-500 bg-pink-50 text-pink-600'
-                      : 'border-border bg-background text-foreground hover:border-pink-400 hover:text-pink-600'
-                  }`}
+                <FilterOption
+                  isActive={statusFilter === 'all'}
+                  activeStyle="border-pink-500 bg-pink-50 text-pink-600"
+                  inactiveStyle="border-border bg-background text-foreground hover:border-pink-400 hover:text-pink-600"
+                  onOptionChange={() => onStatusChange('all')}
                 >
                   Todos
-                </button>
-                <button
-                  type="button"
-                  onClick={() => onStatusChange('available')}
-                  className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-sm transition ${
-                    statusFilter === 'available'
-                      ? 'border-green-500 bg-green-50 text-green-600'
-                      : 'border-border bg-background text-foreground hover:border-green-400 hover:text-green-600'
-                  }`}
+                </FilterOption>
+
+                <FilterOption
+                  isActive={statusFilter === 'available'}
+                  activeStyle="border-green-500 bg-green-50 text-green-600"
+                  inactiveStyle="border-border bg-background text-foreground hover:border-green-400 hover:text-green-600"
+                  onOptionChange={() => onStatusChange('available')}
                 >
                   <CircleCheck className="h-4 w-4" />
-                  Disponiveis
-                </button>
-                <button
-                  type="button"
-                  onClick={() => onStatusChange('sold')}
-                  className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-sm transition ${
-                    statusFilter === 'sold'
-                      ? 'border-red-500 bg-red-50 text-red-600'
-                      : 'border-border bg-background text-foreground hover:border-red-400 hover:text-red-600'
-                  }`}
+                  Disponíveis
+                </FilterOption>
+
+                <FilterOption
+                  isActive={statusFilter === 'sold'}
+                  activeStyle="border-red-500 bg-red-50 text-red-600"
+                  inactiveStyle="border-border bg-background text-foreground hover:border-red-400 hover:text-red-600"
+                  onOptionChange={() => onStatusChange('sold')}
                 >
                   <CircleX className="h-4 w-4" />
                   Vendidos
-                </button>
+                </FilterOption>
               </div>
             </div>
 
             <div className="flex flex-1 flex-col gap-2">
-              <p className="flex items-center gap-1.5 text-sm font-semibold text-foreground">
+              <FilterLabel>
                 <Users className="h-4 w-4" />
                 Filtrar por fornecedor
-              </p>
+              </FilterLabel>
               <div className="flex flex-wrap gap-2">
                 {supplierOptions.map((supplier) => {
                   const isSelected = selectedSuppliers.includes(supplier);
@@ -178,10 +173,10 @@ function VitrinePageContent() {
             </div>
 
             <div className="flex flex-1 flex-col gap-2">
-              <p className="flex items-center gap-1.5 text-sm font-semibold text-foreground">
+              <FilterLabel>
                 <Search className="h-4 w-4" />
                 Filtrar por nome
-              </p>
+              </FilterLabel>
               <input
                 type="search"
                 placeholder="Pesquisar por nome do produto..."
