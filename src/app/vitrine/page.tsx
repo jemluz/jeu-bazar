@@ -15,14 +15,17 @@ import {
 } from 'lucide-react';
 import { supplierFilterStyles } from '@/domains/product/product.constants';
 import { VitrineTitle } from '@/components/VitrineTitle';
+import { ProductProvider } from '@/contexts/ProductContext';
 
 type StatusFilter = 'all' | 'sold' | 'available';
 
 export default function VitrinePage() {
   return (
-    <Suspense>
-      <VitrinePageContent />
-    </Suspense>
+    <ProductProvider>
+      <Suspense>
+        <VitrinePageContent />
+      </Suspense>
+    </ProductProvider>
   );
 }
 

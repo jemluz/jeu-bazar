@@ -1,16 +1,14 @@
 import { productData } from '@/domains/product/product.data';
 import React, { createContext, useContext, useMemo } from 'react';
 
-export type ProductContextType = {
+type ProductContextType = {
   totalProducts: number;
   soldProducts: number;
   availableProducts: number;
   // Adicione outros dados de produto aqui futuramente
 };
 
-export const ProductContext = createContext<ProductContextType | undefined>(
-  undefined,
-);
+const ProductContext = createContext<ProductContextType | undefined>(undefined);
 
 export function useProductContext() {
   const context = useContext(ProductContext);
